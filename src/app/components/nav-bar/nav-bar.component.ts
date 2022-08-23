@@ -12,4 +12,14 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  user = {
+    name: "Juan"
+  }
+
+  toggleMenuBool = true;
+
+  toggleMenu() {
+    this.toggleMenuBool = !this.toggleMenuBool
+  }
+
 }

@@ -1,1 +1,52 @@
-<p>nav-bar works!</p>
+<nav id="nav-bar" class="shadow">
+  <header>
+    <aside>
+      <img src="../../../assets/visuals/logo.svg" alt="logo" />
+      <h1>Kanban App</h1>
+    </aside>
+    <button class="burger" (click)="toggleMenu()" [ngClass]="{'active': toggleMenuBool}">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </button>
+  </header>
+  <div class="menu shadow" [ngClass]="{'active': toggleMenuBool}">
+    <section>
+      <p>Recent...</p>
+      <div class="recent-or-active">
+        <img src="../../../assets/visuals/vinciu.svg" alt="board logo" />
+        VinciU Tasks
+      </div>
+      <div class="members">
+        Members
+        <div class="member">
+          <img src="../../../assets/visuals/vinciu.svg" alt="member image" />
+          <aside>
+            <p>Franco Fontana <i class="bx bx-crown"></i></p>
+            <select id="rol">
+              <option selected hidden>Admin</option>
+              <option value="admin">Admin</option>
+              <option value="admin">Editor</option>
+              <option value="admin">Reader</option>
+            </select>
+          </aside>
+        </div>
+      </div>
+      <button>
+        <i class="bx bxs-share-alt"></i>
+        Invite members
+      </button>
+      <button>
+        <i class="bx bx-home"></i>
+        Go home
+      </button>
+    </section>
+    <footer>
+      <img src="../../../assets/visuals/vinciu.svg" alt="user image" />
+      <aside>
+        <p>{{ user.name }}</p>
+        <p id="log-out">Log out</p>
+      </aside>
+    </footer>
+  </div>
+</nav>
