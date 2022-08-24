@@ -7,6 +7,7 @@ import { HomeComponent } from './routes/home/home.component';
 import { SignInComponent } from './routes/sign-in/sign-in.component';
 import { BoardComponent } from './routes/board/board.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

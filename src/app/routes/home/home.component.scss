@@ -1,0 +1,112 @@
+#home {
+  display: flex;
+  flex-direction: column;
+  margin-left: var(--nav-bar-size);
+  padding: 0 var(--space);
+
+  >header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: var(--space);
+    border-bottom: var(--border-size) solid var(--primary);
+    gap: var(--space);
+    label {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: var(--space);
+      input {
+        height: var(--img-size);
+        padding: 0 0.5rem;
+        border-radius: var(--small-border-radius);
+        outline: none;
+        &::placeholder {
+          color: var(--light);
+        }
+      }
+      i {
+        position: absolute;
+        right: 0.5rem;
+      }
+      select {
+        height: var(--img-size);
+        border-radius: var(--small-border-radius);
+        border: none;
+        outline: none;
+        background: var(--primary);
+        padding: 0 0.5rem;
+        &:hover {
+          background: var(--secondary);
+        }
+      }
+    }
+  }
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space);
+    padding: var(--space);
+    button, .board {
+      border: none;
+      border-radius: var(--border-radius);
+      aspect-ratio: 1 / 1;
+      max-width: 15rem;
+      width: 15rem;
+    }
+    button {
+      background: var(--primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space);
+      &:hover {
+        background: var(--secondary);
+      }
+      i {
+        font-size: calc(var(--img-size) * 1.15);
+      }
+    }
+    .board {
+      display: flex;
+      flex-direction: column;
+      align-items: left;
+      justify-content: space-between;
+      background: var(--dark);
+      padding: var(--space);
+      header {
+        display: flex;
+        align-items: center;
+        gap: var(--space);
+        p:nth-child(2){
+          color:var(--primary)
+        }
+      }
+      footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      i {
+        font-size: calc(var(--img-size) * 0.8);
+        &:hover {
+          color: var(--primary)
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  #home {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0;
+    margin-top: var(--nav-bar-size);
+    padding: 0 var(--space);
+  }
+}

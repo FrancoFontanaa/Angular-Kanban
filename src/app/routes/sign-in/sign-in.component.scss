@@ -1,0 +1,49 @@
+#sign-in {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('../../../assets/visuals/pattern.png');
+  background-size: 45rem;
+  animation: move 30s linear infinite;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space);
+  header, button, label {
+    width: 17rem;
+    display: flex;
+    align-items: center;
+    gap: var(--space);
+    i {
+      font-size: var(--img-size);
+    }
+    user-select: none;
+  }
+  button {
+    padding: var(--space);
+    background: var(--primary);
+    border: none;
+    outline: none;
+    border-radius: var(--small-border-radius);
+    &:hover {
+      background: var(--secondary);
+    }
+  }
+  h1 {
+    text-decoration: underline;
+    text-decoration-color: var(--primary);
+    text-decoration-thickness: 0.2rem;
+    font-size: 2rem;
+  }
+}
+
+@keyframes move {
+  from {
+    background-position-x: 45rem;
+  } to {
+    background-position-x: -45rem;
+  }
+}
