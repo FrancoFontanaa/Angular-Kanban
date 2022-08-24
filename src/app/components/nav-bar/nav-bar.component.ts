@@ -15,7 +15,7 @@ export class NavBarComponent implements OnInit {
   user = {
     name: "Juan"
   }
-  toggleMenuBool = true;
+  toggleMenuBool = false;
   toggleMenu() {
     this.toggleMenuBool = !this.toggleMenuBool
   }

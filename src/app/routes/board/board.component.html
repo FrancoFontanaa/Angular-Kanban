@@ -9,13 +9,45 @@
       <i class="bx bx-trash"></i>
     </aside>
   </header>
-  <div class="container">
-    <div class="column">
-      <div class="card"></div>
-      <button cdkDrag>
+  <div class="container"
+    cdkDropListGroup
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    [cdkDropListData]="columns"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div class="column" *ngFor="let column of columns" cdkDrag>
+      <header>
+        <h2>{{column.title}}</h2>
+        <aside>
+          <i class='bx bxs-edit' ></i>
+          <i class='bx bx-trash'></i>
+        </aside>
+      </header>
+      <div class="cards-container"
+        cdkDropList
+        [cdkDropListData]="column.cards"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="card" *ngFor="let card of column.cards" cdkDrag>
+          <header style='{{"--bg:"+card.bg}}'>
+            {{card.title}}
+            <aside>
+              <i class='bx bxs-edit' ></i>
+              <i class='bx bx-trash' ></i>
+            </aside>
+          </header>
+          <p>{{card.text}}</p>
+        </div>
+      </div>
+      <button>
         <i class="bx bx-plus"></i>
-        New column
+        Add new card
       </button>
     </div>
+    <button (click)="newColumn()">
+      <i class="bx bx-plus"></i>
+      New column
+    </button>
   </div>
 </div>

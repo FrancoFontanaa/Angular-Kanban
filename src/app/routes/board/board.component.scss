@@ -3,7 +3,8 @@
   flex-direction: column;
   margin-left: var(--nav-bar-size);
   padding: 0 var(--space);
-  header {
+  height: 99vh;
+  >header {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -33,11 +34,98 @@
       }
     }
   }
+  aside {
+    display: flex;
+    align-items: center;
+    gap: var(--space);
+  }
+  .container {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: var(--space);
+    gap: var(--space);
+    overflow: auto;
+    height: 100%;
+    .column {
+      display: flex;
+      flex-direction: column;
+      background: var(--gray);
+      min-width: 20rem;
+      max-height: 100%;
+      transition: transform 0.15s ease-in-out;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      >header, >button {
+        display: flex;
+        align-items: center;
+        gap: var(--space);
+        padding: var(--space);
+        i {
+          font-size: calc(var(--img-size) * 0.75);
+        }
+      }
+      >header {
+        justify-content: space-between;
+        border-bottom: var(--border-size) solid var(--light);
+      }
+      >button {
+        border: none;
+        background: transparent;
+        border-top: var(--border-size) solid var(--light);
+        cursor: pointer;
+      }
+      .cards-container {
+        display: flex;
+        flex-direction: column;
+        padding: var(--space);
+        gap: var(--space);
+        max-height: 100%;
+        overflow: auto;
+        .card {
+          font-size: 1rem;
+          line-height: normal;
+          color: var(--soft-dark);
+          background: var(--light);
+          transition: transform 0.15s ease-in-out;
+          border-radius: var(--small-border-radius);
+          header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: calc(var(--space) * 0.5);
+            background: var(--bg);
+            border-radius: var(--small-border-radius) var(--small-border-radius) 0 0;
+            font-size: 1rem;
+          }
+          p {
+            font-size: 1rem;
+            padding: calc(var(--space) * 0.5);
+          }
+        }
+      }
+    }
+    >button{
+      display: flex;
+      align-items: center;
+      gap: var(--space);
+      padding: var(--space);
+      i {
+        font-size: calc(var(--img-size) * 0.75);
+      }
+      border: none;
+      border-radius: var(--border-radius);
+      min-width: 20rem;
+    }
+  }
 }
 
 @media screen and (max-width: 1200px) {
   #board {
     margin-left: 0;
     margin-top: var(--nav-bar-size);
+    height: calc(99vh - var(--nav-bar-size));
   }
 }
