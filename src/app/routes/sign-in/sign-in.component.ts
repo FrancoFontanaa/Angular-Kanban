@@ -16,5 +16,6 @@ export class SignInComponent implements OnInit {
   }
   signIn() {
     this.authService.signIn();
+    this.router.navigate(['/home'])
   }
 }

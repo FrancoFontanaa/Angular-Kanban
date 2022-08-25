@@ -9,45 +9,56 @@
       <i class="bx bx-trash"></i>
     </aside>
   </header>
-  <div class="container"
+
+  <div id="columns-container"
     cdkDropListGroup
     cdkDropList
     cdkDropListOrientation="horizontal"
     [cdkDropListData]="columns"
     (cdkDropListDropped)="drop($event)"
   >
-    <div class="column" *ngFor="let column of columns" cdkDrag>
+    <div class="column"
+      *ngFor="let column of columns;
+      let columnIndex = index"
+      cdkDrag
+    >
       <header>
-        <h2>{{column.title}}</h2>
+        <input type="hidden" *ngIf="column.editmode" cdkDragHandle>
+        <input type="text" id='columnTitleInput-{{columnIndex}}' (keyup)="saveColumn(columnIndex, $event)" *ngIf="column.editmode" placeholder="Edit title..." value={{column.title}}>
+        <p *ngIf="!column.editmode">{{column.title}}</p>
         <aside>
-          <i class='bx bxs-edit' ></i>
-          <i class='bx bx-trash'></i>
+          <i class='bx bx-save' *ngIf="column.editmode" (click)="saveColumn(columnIndex, null)"></i>
+          <i class='bx bx-x' *ngIf="column.editmode" (click)="cancelEditColumn(columnIndex)"></i>
+          <i class='bx bxs-edit' *ngIf="!column.editmode" (click)="editColumn(columnIndex)"></i>
+          <i class='bx bx-trash' *ngIf="!column.editmode" (click)="deleteColumn(columnIndex)"></i>
         </aside>
       </header>
-      <div class="cards-container"
+      <div id='cardsContainer-{{columnIndex}}' class="cards-container"
         cdkDropList
         [cdkDropListData]="column.cards"
         (cdkDropListDropped)="drop($event)"
       >
-        <div class="card" *ngFor="let card of column.cards" cdkDrag>
-          <header style='{{"--bg:"+card.bg}}'>
-            {{card.title}}
-            <aside>
-              <i class='bx bxs-edit' ></i>
-              <i class='bx bx-trash' ></i>
-            </aside>
-          </header>
-          <p>{{card.text}}</p>
-        </div>
+        <app-card
+          *ngFor="let card of column.cards; let cardIndex = index"
+          [card]="card"
+          [ici]="[columnIndex, cardIndex]"
+          (deleteEvent)="deleteCard(columnIndex,cardIndex)"
+          (cancelEvent)="cancelEditCard(columnIndex,cardIndex)"
+          (saveEvent)="saveCard(columnIndex,cardIndex)"
+          (editEvent)="editCard(columnIndex,cardIndex)"
+          (pickColorEvent)="pickColorCard(columnIndex,cardIndex)"
+          (setColorEvent)="setColorCard(columnIndex,cardIndex)"
+        ></app-card>
       </div>
-      <button>
-        <i class="bx bx-plus"></i>
-        Add new card
-      </button>
+      <footer (click)="newCard(columnIndex)">
+        <i class='bx bx-plus' ></i>
+        <p>Add new card</p>
+      </footer>
     </div>
+
     <button (click)="newColumn()">
-      <i class="bx bx-plus"></i>
-      New column
+      <i class='bx bx-plus' ></i>
+      <p>Add new column</p>
     </button>
   </div>
 </div>

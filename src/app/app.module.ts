@@ -8,6 +8,8 @@ import { SignInComponent } from './routes/sign-in/sign-in.component';
 import { BoardComponent } from './routes/board/board.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CardComponent } from './components/card/card.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,12 +17,14 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     HomeComponent,
     SignInComponent,
     BoardComponent,
-    NavBarComponent
+    NavBarComponent,
+    CardComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    DragDropModule
+    DragDropModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

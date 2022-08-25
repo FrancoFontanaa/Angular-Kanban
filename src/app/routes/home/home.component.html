@@ -2,36 +2,45 @@
   <header>
     <h1>Your Boards</h1>
     <label>
-      <input type="text" placeholder="Search by name..." />
+      <input type="text" placeholder="Search by name..." [(ngModel)]="search" (keyup)="filterBoards()"/>
       <i class="bx bx-search-alt"></i>
     </label>
     <label>
       Sort by:
-      <select>
+      <select (change)="sortBoards()" id="sorting-order">
         <option value="newest" selected>Newest</option>
         <option value="oldest">Oldest</option>
+        <option value="fav">Favourites</option>
       </select>
     </label>
   </header>
   <div class="container">
     <button class="shadow">
-      <i class="bx bx-plus"></i>
-      <p>Add new</p>
+      <div>
+        <i class="bx bx-plus"></i>
+        <p>Add new</p>
+      </div>
     </button>
-    <div class="board shadow">
-      <header>
-        <img src="../../../assets/visuals/vinciu.svg" alt="logo" />
-        <aside>
-          <p>VinciU Tasks</p>
-          <p>3 Members</p>
-        </aside>
-      </header>
-      <footer>
-        <i class="bx bx-star"></i>
-        <i class="bx bxs-share-alt"></i>
-        <i class="bx bxs-edit-alt"></i>
-        <i class="bx bx-trash"></i>
-      </footer>
-    </div>
+    <ng-container *ngFor="let board of boards;let boardIndex = index">
+      <div class="board shadow" *ngIf="board.visible">
+        <header>
+          <img src={{board.img}} alt="logo" />
+          <aside>
+            <p>{{board.title}}</p>
+            <p>{{board.members}} Members</p>
+          </aside>
+        </header>
+        <footer>
+          <i class="bx bxs-star" *ngIf="board.fav; else notFav" (click)="fav(boardIndex)"></i>
+          <ng-template #notFav>
+            <i class="bx bx-star" (click)="fav(boardIndex)"></i>
+          </ng-template>
+          <i class="bx bxs-share-alt"></i>
+          <i class="bx bxs-edit-alt"></i>
+          <i class="bx bx-trash"></i>
+        </footer>
+      </div>
+    </ng-container>
+
   </div>
 </div>

@@ -1,0 +1,65 @@
+div {
+  background: var(--soft-gray);
+  color: var(--light);
+  padding: var(--space);
+  border-radius: var(--small-border-radius);
+  border-top: var(--border-size) solid var(--color);
+  border-bottom: var(--border-size) solid var(--color);
+  width: var(--card-size);
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space);
+    color: var(--color);
+    margin-bottom: var(--space);
+    p {
+      display: inline-block;
+      max-width: 100%;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      line-height: 150%;
+    }
+    aside {
+      display: flex;
+      align-items: center;
+      gap: var(--space);
+      i.bx-x {
+        transform: scale(150%);
+      }
+    }
+    input[type="text"] {
+      background: transparent;
+      outline: none;
+      border: var(--border-size) dashed rgba(255, 255, 255, 0.2);
+      border-radius: var(--small-border-radius);
+      width: 100%;
+      padding: 0 0.2rem;
+      color: var(--color);
+    }
+    input[type="color"] {
+      width: 0px;
+      height: 0px;
+      transform: scale(0);
+    }
+    button {
+      aspect-ratio: 1 / 1;
+      width: 0.9rem;
+      outline: none;
+      border: none;
+      border-radius: var(--small-border-radius);
+      background: var(--color);
+    }
+  }
+  textarea {
+    resize: none;
+    background: transparent;
+    outline: none;
+    border: var(--border-size) dashed rgba(255, 255, 255, 0.2);
+    border-radius: var(--small-border-radius);
+    width: 100%;
+    height: 8rem;
+    padding: 0.2rem;
+  }
+}

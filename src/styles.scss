@@ -7,13 +7,16 @@
   --primary: #FF0056;
   --secondary: #ff4e89;
   --light: #fff;
-  --gray: #A8A8A8;
+  --gray: #494949;
+  --soft-gray: #565656;
   --nav-bar-size: 19rem;
   --space: 1rem;
   --border-size: 0.3rem;
   --small-border-radius: 0.5rem;
   --img-size: 2.5rem;
   --border-radius: 1rem;
+  --card-size: 18rem;
+  --column-size: 21.5rem;
 }
 
 *{
@@ -54,6 +57,7 @@ i {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  word-break: break-word;
 }
 
 * {

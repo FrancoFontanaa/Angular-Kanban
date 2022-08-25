@@ -1,0 +1,25 @@
+<div *ngIf="!card.editmode; else editMode" style='--color:{{card.color}}' cdkDrag>
+  <header>
+    <p>{{card.title}}</p>
+    <aside>
+      <i class='bx bxs-edit' (click)="edit()"></i>
+      <i class='bx bx-trash' (click)="delete()"></i>
+    </aside>
+  </header>
+  <p>
+    {{card.body}}
+  </p>
+</div>
+<ng-template #editMode>
+  <div style='--color:{{card.color}}' (keyup)="save($event)">
+    <header>
+      <input type="text" id='cardTitleInput-{{ici[0]}}-{{ici[1]}}' placeholder="Edit title..." value={{card.title}}>
+      <aside>
+        <button (click)="pickColor()"><input type="color" id='cardColorInput-{{ici[0]}}-{{ici[1]}}' (change)="setColor()" value={{card.color}}></button>
+        <i class='bx bx-save' (click)="save(null)"></i>
+        <i class='bx bx-x' (click)="cancel()"></i>
+      </aside>
+    </header>
+    <textarea id='cardBodyInput-{{ici[0]}}-{{ici[1]}}' placeholder="Write something...">{{card.body}}</textarea>
+  </div>
+</ng-template>
