@@ -1,26 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { DatabaseManagerService } from 'src/app/services/database-manager.service';
+import { MyUser } from 'src/assets/models';
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss']
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnInit {
   constructor(
-    readonly router : Router,
-    private authService : AuthService
+    public router: Router,
+    private authService: AuthService,
+    private databaseManagerService: DatabaseManagerService
   ) {}
-  user = {
-    displayName: this.authService.User?.displayName as string || "Undefined",
-    photoURL: this.authService.User?.photoURL as string || "../../../assets/visuals/user-img-placeholder.svg",
-    logOut: ()=>{this.authService.logOut()}
+  ngOnInit(): void {
+    this.authService.user$.subscribe(user => {
+      this.user.displayName = user?.displayName || "Undefined";
+      this.user.photoURL = user?.photoURL || "../../../assets/visuals/user-img-placeholder.svg";
+      console.log(user?.photoURL)
+    })
+  }
+  user: MyUser = {
+    displayName: "Undefined",
+    photoURL: "../../../assets/visuals/user-img-placeholder.svg"
   }
   toggleMenuBool = false;
   toggleMenu() {
-    console.log(this.authService.User?.photoURL)
-    this.toggleMenuBool = !this.toggleMenuBool
+    this.toggleMenuBool = !this.toggleMenuBool;
+    this.databaseManagerService.createBoard();
   }
-
+  copyInvitationCode() {
+    alert('Invitation code copied to clipboard!')
+  }
 }

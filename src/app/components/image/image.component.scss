@@ -1,0 +1,8 @@
+div {
+  aspect-ratio: 1 / 1;
+  border-radius: 100%;
+  width: var(--img-size);
+  background: var(--src);
+  background-position: center;
+  background-size: cover;
+}

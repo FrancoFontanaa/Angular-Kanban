@@ -14,6 +14,9 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { provideAuth,getAuth } from '@angular/fire/auth';
+import { BoardPreviewComponent } from './components/board-preview/board-preview.component';
+import { ImageComponent } from './components/image/image.component';
+import { JoinOrCreateModalComponent } from './components/join-or-create-modal/join-or-create-modal.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,9 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
     BoardComponent,
     NavBarComponent,
     CardComponent,
+    BoardPreviewComponent,
+    ImageComponent,
+    JoinOrCreateModalComponent
   ],
   imports: [
     BrowserModule,

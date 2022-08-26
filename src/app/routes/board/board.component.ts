@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Column } from 'src/assets/models';
-import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-board',
@@ -9,12 +8,6 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent {
-
-  constructor(
-    private authService: AuthService
-  ) {
-    authService.checkSignedIn()
-  }
 
   columns: Column[] = [];
 

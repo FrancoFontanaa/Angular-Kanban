@@ -16,30 +16,18 @@
   </header>
   <div class="container">
     <button class="shadow">
-      <div>
-        <i class="bx bx-plus"></i>
-        <p>Add new</p>
-      </div>
+      <i class="bx bx-plus"></i>
+      Add new
     </button>
     <ng-container *ngFor="let board of boards;let boardIndex = index">
-      <div class="board shadow" *ngIf="board.visible">
-        <header>
-          <img src={{board.img}} alt="logo" />
-          <aside>
-            <p>{{board.title}}</p>
-            <p>{{board.members}} Members</p>
-          </aside>
-        </header>
-        <footer>
-          <i class="bx bxs-star" *ngIf="board.fav; else notFav" (click)="fav(boardIndex)"></i>
-          <ng-template #notFav>
-            <i class="bx bx-star" (click)="fav(boardIndex)"></i>
-          </ng-template>
-          <i class="bx bxs-share-alt"></i>
-          <i class="bx bxs-edit-alt"></i>
-          <i class="bx bx-trash"></i>
-        </footer>
-      </div>
+      <app-board-preview
+        [title]="board.title"
+        [members]="board.members"
+        [img]="board.img"
+        [fav]="board.fav"
+        (favEvent)="fav(boardIndex)"
+        *ngIf="board.visible"
+      ></app-board-preview>
     </ng-container>
 
   </div>

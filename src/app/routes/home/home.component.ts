@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
 import { Board } from 'src/assets/models';
 
 @Component({
@@ -9,12 +8,6 @@ import { Board } from 'src/assets/models';
 })
 export class HomeComponent {
 
-  constructor(
-    private authService: AuthService
-  ) {
-    authService.checkSignedIn()
-  }
-
   search: string = '';
 
   boards: Board[] = [
@@ -23,7 +16,7 @@ export class HomeComponent {
       title: "VinciU Tasks",
       members: 3,
       visible: true,
-      fav: false,
+      fav: true,
       date: Date.now()
     },
     {
@@ -33,22 +26,6 @@ export class HomeComponent {
       visible: true,
       fav: false,
       date: Date.now() + 1
-    },
-    {
-      img: "../../assets/visuals/vinciu.svg",
-      title: "Personal Tasks",
-      members: 3,
-      visible: true,
-      fav: false,
-      date: Date.now() + 2
-    },
-    {
-      img: "../../assets/visuals/vinciu.svg",
-      title: "Portfolio Tasks",
-      members: 3,
-      visible: true,
-      fav: false,
-      date: Date.now() + 3
     }
   ]
 

@@ -19,3 +19,8 @@ export interface Board {
   fav: boolean,
   date: number
 }
+
+export interface MyUser {
+  displayName: string,
+  photoURL: string,
+}

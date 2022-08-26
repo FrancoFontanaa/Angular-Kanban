@@ -1,0 +1,17 @@
+<div class="shadow">
+  <header>
+    <app-image [src]="img"></app-image>
+    <aside>
+      <h2>{{title}}</h2>
+      <p>{{members}} Members</p>
+    </aside>
+  </header>
+  <footer>
+    <i class="bx bx-star" (click)="favFunc()" *ngIf="!fav"></i>
+    <i class="bx bxs-star" (click)="favFunc()" *ngIf="fav"></i>
+    <i class="bx bxs-share-alt"></i>
+    <i class="bx bxs-edit-alt"></i>
+    <i class="bx bx-trash"></i>
+    <button>Open</button>
+  </footer>
+</div>

@@ -36,7 +36,7 @@
       display: none;
       position: relative;
       min-width: var(--img-size);
-      min-height: var(--img-size);
+      min-height: calc(var(--img-size) * 0.8);
       border: none;
       background: transparent;
       &:hover .line {
@@ -44,7 +44,8 @@
       }
       .line {
         position: absolute;
-        height: 0.3rem;
+        min-height: 5px;
+        max-height: 5px;
         width: 100%;
         background: var(--primary);
         border-radius: var(--small-border-radius);
@@ -90,7 +91,7 @@
       flex-grow: 1;
       gap: var(--space);
       padding: var(--space);
-      .recent-or-active, .members {
+      .recent, .members {
         display: flex;
         gap: var(--space);
         padding: var(--space);
@@ -98,7 +99,7 @@
         border-radius: var(--small-border-radius);
         overflow: hidden;
       }
-      .recent-or-active {
+      .recent {
         align-items: center;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -152,12 +153,6 @@
       gap: var(--space);
       padding: var(--space);
       border-top: 0.3rem solid var(--primary);
-      img {
-        max-width: var(--img-size);
-        max-height: var(--img-size);
-        width: auto;
-        height: auto;
-      }
       #log-out {
         color: var(--primary);
         cursor: pointer;
