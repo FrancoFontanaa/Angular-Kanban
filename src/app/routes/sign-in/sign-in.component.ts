@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -8,14 +7,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
+  keepMeLogged: boolean = localStorage.getItem('keepMeLogged') ? true : false;
   constructor(
     private authService : AuthService,
-    private router : Router
   ) { }
   ngOnInit(): void {
+    (document.getElementById('keep-me-logged') as HTMLInputElement).value = localStorage.getItem('keepMeLogged') || "off";
+    if (this.keepMeLogged) {
+      this.signIn('kml')
+    }
   }
-  signIn() {
-    this.authService.signIn();
-    this.router.navigate(['/home'])
+  signIn(method: string) {
+    this.authService.signIn(method);
+  }
+  toggleKeepMeLogged(){
+    console.log(this.keepMeLogged)
+    if (this.keepMeLogged) {
+      localStorage.setItem('keepMeLogged', 'on')
+    } else {
+      localStorage.removeItem('keepMeLogged')
+    }
   }
 }

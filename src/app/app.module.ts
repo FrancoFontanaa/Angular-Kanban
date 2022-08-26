@@ -10,6 +10,10 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CardComponent } from './components/card/card.component';
 import { FormsModule } from '@angular/forms';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getStorage, provideStorage } from '@angular/fire/storage';
+import { provideAuth,getAuth } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,19 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     DragDropModule,
-    FormsModule
+    FormsModule,
+    provideFirebaseApp(() => initializeApp({
+      apiKey: "AIzaSyCcIVu7TrbDDwNWgK4Ai2I9vRVKZg-S3Rg",
+      authDomain: "angular-kanban-tool.firebaseapp.com",
+      projectId: "angular-kanban-tool",
+      storageBucket: "angular-kanban-tool.appspot.com",
+      messagingSenderId: "747952032347",
+      appId: "1:747952032347:web:16f63474f60c507c0e8d7e",
+      measurementId: "G-X313VN63YM"
+    })),
+    provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
+    provideStorage(() => getStorage())
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -42,10 +42,10 @@
       </button>
     </section>
     <footer>
-      <img src="../../../assets/visuals/vinciu.svg" alt="user image" />
+      <img src={{user.photoURL}} alt="user image" />
       <aside>
-        <p>{{ user.name }}</p>
-        <p id="log-out">Log out</p>
+        <p>{{ user.displayName }}</p>
+        <p id="log-out" (click)="user.logOut()">Log out</p>
       </aside>
     </footer>
   </div>

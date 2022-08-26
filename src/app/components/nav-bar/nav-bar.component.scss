@@ -152,6 +152,12 @@
       gap: var(--space);
       padding: var(--space);
       border-top: 0.3rem solid var(--primary);
+      img {
+        max-width: var(--img-size);
+        max-height: var(--img-size);
+        width: auto;
+        height: auto;
+      }
       #log-out {
         color: var(--primary);
         cursor: pointer;

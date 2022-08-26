@@ -3,13 +3,9 @@
     <img src="../../../assets/visuals/logo.svg" alt="logo">
     <h1>Kanban App</h1>
   </header>
-  <button (click)="signIn()">
+  <button (click)="signIn('Google')" id="google-sign-in">
     <i class='bx bxl-google-plus'></i>
     Sign in with Google
   </button>
-  <button (click)="signIn()">
-    <i class='bx bxs-phone-outgoing'></i>
-    Sign in with Phone
-  </button>
-  <label><input type="checkbox" id="keep-me-logged"> Keep me logged.</label>
+  <label><input type="checkbox" id="keep-me-logged" [(ngModel)]="keepMeLogged" (change)="toggleKeepMeLogged()"> Keep me logged.</label>
 </div>

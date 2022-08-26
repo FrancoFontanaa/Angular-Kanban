@@ -47,17 +47,16 @@
   .container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: left;
+    justify-content: space-evenly;
     gap: var(--space);
     padding: var(--space);
     button, .board {
       position: relative;
       border: none;
       border-radius: var(--border-radius);
-      min-width: 15rem;
-      max-width: 25rem;
-      flex-grow: 1;
+      width: 15rem;
       aspect-ratio: 1 / 1;
+      animation: appear 0.3s ease-in-out forwards;
     }
     button {
       background: var(--primary);
@@ -80,7 +79,6 @@
       }
     }
     .board {
-      align-self: flex-start;
       background: var(--dark);
       padding: var(--space);
       header {
@@ -124,5 +122,13 @@
     margin-left: 0;
     margin-top: var(--nav-bar-size);
     padding: 0 var(--space);
+  }
+}
+
+@keyframes appear {
+  from {
+    transform: scale(0%);
+  } to {
+    transform: scale(100%);
   }
 }
