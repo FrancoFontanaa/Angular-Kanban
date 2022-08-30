@@ -19,10 +19,6 @@ export interface Board {
   fav: boolean,
   date: number,
   mode: string,
-  id: string
-}
-
-export interface MyUser {
-  displayName: string,
-  photoURL: string,
+  id: string,
+  columns: Column[]
 }

@@ -1,15 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Column } from 'src/assets/models';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss']
 })
-export class BoardComponent {
+export class BoardComponent implements OnInit {
 
   columns: Column[] = [];
+  boardId: string | undefined;
+
+  constructor(
+    private activatedRoute: ActivatedRoute
+  ){}
+
+  async ngOnInit() {
+    this.boardId = this.activatedRoute.snapshot.paramMap.get('id') as string
+  }
 
   drop(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Auth, user, signOut } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { DatabaseManagerService } from 'src/app/services/database-manager.service';
-import { MyUser } from 'src/assets/models';
 
 @Component({
   selector: 'app-nav-bar',
@@ -12,26 +10,36 @@ import { MyUser } from 'src/assets/models';
 export class NavBarComponent implements OnInit {
   constructor(
     public router: Router,
-    private authService: AuthService,
-    private databaseManagerService: DatabaseManagerService
-  ) {}
+    private auth: Auth
+  ){}
+
+  toggleMenuBool = false;
+  user = {
+    displayName: "Undefined",
+    photoURL: "../../../assets/visuals/user-img-placeholder.svg",
+    recent: {
+      color: "white",
+      title: "Undefined"
+    }
+  };
+
   ngOnInit(): void {
-    this.authService.user$.subscribe(user => {
-      this.user.displayName = user?.displayName || "Undefined";
-      this.user.photoURL = user?.photoURL || "../../../assets/visuals/user-img-placeholder.svg";
-      console.log(user?.photoURL)
+    user(this.auth).subscribe(userdata => {
+      this.user.displayName = userdata?.displayName as string;
+      this.user.photoURL = userdata?.photoURL as string;
     })
   }
-  user: MyUser = {
-    displayName: "Undefined",
-    photoURL: "../../../assets/visuals/user-img-placeholder.svg"
-  }
-  toggleMenuBool = false;
+
   toggleMenu() {
     this.toggleMenuBool = !this.toggleMenuBool;
-    this.databaseManagerService.createBoard();
   }
-  copyInvitationCode() {
-    alert('Invitation code copied to clipboard!')
+
+  addMember() {
+    alert('Work in progress')
+  }
+
+  logOut(){
+    signOut(this.auth);
+    this.router.navigate(['/signIn'])
   }
 }

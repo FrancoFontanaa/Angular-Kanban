@@ -27,6 +27,7 @@
         </button>
       </div>
     </ng-container>
+    <h1 *ngIf="boards.length < 1">Loading...</h1>
     <ng-template #joiningInput>
       <div class="joining-input">
         <input type="text" placeholder="Enter your invitation code">

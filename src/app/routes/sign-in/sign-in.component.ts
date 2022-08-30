@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
+import { Auth, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -8,9 +9,11 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class SignInComponent {
   constructor(
-    private authService : AuthService,
+    private auth: Auth,
+    private router: Router
   ) { }
-  signIn() {
-    this.authService.signIn();
+  async signIn() {
+    await signInWithPopup(this.auth, new GoogleAuthProvider());
+    this.router.navigate(['/home']);
   }
 }

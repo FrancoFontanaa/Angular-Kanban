@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Board } from 'src/assets/models';
-import { Router } from '@angular/router';
-import { DatabaseManagerService } from 'src/app/services/database-manager.service';
+import { DatabaseService } from 'src/app/services/database.service';
+import { BoardsManagerService } from 'src/app/services/boards-manager.service';
 
 @Component({
   selector: 'app-home',
@@ -11,38 +11,36 @@ import { DatabaseManagerService } from 'src/app/services/database-manager.servic
 export class HomeComponent implements OnInit {
 
   constructor(
-    private router: Router,
-    private databaseManagerService: DatabaseManagerService
+    private databaseService: DatabaseService,
+    private boardsManager: BoardsManagerService
   ){}
 
   search: string = '';
   joining: boolean = false;
 
-  boards: Board[] = [
-    {
-      color: "cyan",
-      title: "VinciU Tasks",
-      members: 3,
-      visible: true,
-      fav: true,
-      date: Date.now(),
-      mode: "normal",
-      id: ""
-    },
-    {
-      color: "lime",
-      title: "Google Tasks",
-      members: 3,
-      visible: true,
-      fav: false,
-      date: Date.now() + 1,
-      mode: "normal",
-      id: ""
-    }
-  ]
+  boards: Board[] = []
 
-  ngOnInit() {
+  async ngOnInit() {
+    const boardsSnapshot = await this.databaseService.getBoards();
+    boardsSnapshot.forEach((board: any) => {
+      if (board.id != "UserData"){
+        this.boards.push(
+          {
+            color: board.data()['details'].color,
+            title: board.data()['details'].title,
+            members: board.data()['details'].members,
+            visible: true,
+            fav: board.data()['details'].fav,
+            date: board.data()['details'].date,
+            mode: "normal",
+            id: board.id,
+            columns: board.data()['columns'] || []
+          }
+        )
+      }
+    });
     this.sortBoards()
+    this.boardsManager.getUserBoards()
   }
 
   filterBoards() {
@@ -81,9 +79,16 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  fav(i: number) {
+  async fav(i: number) {
     this.boards[i].fav = !this.boards[i].fav;
-    console.log(this.boards[i].fav, i)
+    await this.databaseService.updateBoard(
+      this.boards[i].id,
+      this.boards[i].title,
+      this.boards[i].color,
+      this.boards[i].members,
+      this.boards[i].date,
+      this.boards[i].fav
+    )
   }
 
   toggleJoining() {
@@ -100,7 +105,8 @@ export class HomeComponent implements OnInit {
       fav:false,
       date:Date.now(),
       mode:"edit",
-      id: this.databaseManagerService.randomCode(6)
+      id: "undefined",
+      columns: []
     })
     this.sortBoards()
   }
@@ -117,16 +123,30 @@ export class HomeComponent implements OnInit {
     this.boards[boardIndex].mode = "edit"
   }
 
-  deleteBoard(boardIndex: number) {
+  async deleteBoard(boardIndex: number) {
+    await this.databaseService.deleteBoard(this.boards[boardIndex].id);
     this.boards.splice(boardIndex, 1);
   }
 
-  saveEditBoard(boardIndex: number) {
+  async saveEditBoard(boardIndex: number) {
     let title = (document.getElementById("boardPreviewTitleInput-"+boardIndex) as HTMLInputElement).value;
     let color = (document.getElementById("boardPreviewColorInput-"+boardIndex) as HTMLInputElement).value;
     this.boards[boardIndex].title = title;
     this.boards[boardIndex].color = color;
-    this.boards[boardIndex].mode = "normal"
+    this.boards[boardIndex].mode = "normal";
+    if (this.boards[boardIndex].id == "undefined") {
+      let board = await this.databaseService.createBoard(title, color);
+      this.boards[boardIndex].id = board.id;
+    } else {
+      await this.databaseService.updateBoard(
+        this.boards[boardIndex].id,
+        title,
+        color,
+        this.boards[boardIndex].members,
+        this.boards[boardIndex].date,
+        this.boards[boardIndex].fav
+      )
+    }
   }
 
   pickBoardColor(boardIndex: number) {
