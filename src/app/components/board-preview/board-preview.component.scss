@@ -14,21 +14,50 @@ div {
     p {
       color: var(--primary);
     }
+    input[type="text"] {
+      background: transparent;
+      outline: none;
+      border: var(--border-size) dashed rgba(255, 255, 255, 0.2);
+      border-radius: var(--small-border-radius);
+      padding: 0 0.2rem;
+    }
+    .color {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 1 / 1;
+      width: var(--img-size);
+      background: var(--color);
+      border-radius: 50%;
+      input[type="color"]{
+        position: absolute;
+        transform: scale(0);
+      }
+      i {
+        position: absolute;
+        transform: scale(80%);
+        &:hover {
+          color: var(--light);
+        }
+      }
+    }
+  }
+
+  i {
+    font-size: var(--img-size);
+    &:hover {
+      color: var(--primary);
+    }
+    &.bxs-star {
+      color: var(--primary);
+    }
   }
 
   footer {
     display: flex;
     align-items: center;
     gap: var(--space);
-    i {
-      font-size: var(--img-size);
-      &:hover {
-        color: var(--primary);
-      }
-      &.bxs-star {
-        color: var(--primary);
-      }
-    }
   }
 
   button {

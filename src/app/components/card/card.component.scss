@@ -25,9 +25,6 @@ div {
       display: flex;
       align-items: center;
       gap: var(--space);
-      i.bx-x {
-        transform: scale(150%);
-      }
     }
     input[type="text"] {
       background: transparent;

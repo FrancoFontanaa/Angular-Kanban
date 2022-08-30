@@ -1,17 +1,52 @@
-<div class="shadow">
-  <header>
-    <app-image [src]="img"></app-image>
-    <aside>
-      <h2>{{title}}</h2>
-      <p>{{members}} Members</p>
-    </aside>
-  </header>
-  <footer>
-    <i class="bx bx-star" (click)="favFunc()" *ngIf="!fav"></i>
-    <i class="bx bxs-star" (click)="favFunc()" *ngIf="fav"></i>
-    <i class="bx bxs-share-alt"></i>
-    <i class="bx bxs-edit-alt"></i>
-    <i class="bx bx-trash"></i>
-    <button>Open</button>
-  </footer>
+<div class="shadow" [ngSwitch]="mode">
+
+  <ng-container *ngSwitchCase="'normal'">
+    <header>
+      <div class="color" style='--color:{{color}}'>
+        <i class='bx bxs-dashboard' ></i>
+      </div>
+      <aside>
+        <h2>{{title}}</h2>
+        <p>{{members}} Members</p>
+      </aside>
+    </header>
+    <footer>
+      <i class="bx bx-star" (click)="favFunc()" *ngIf="!fav"></i>
+      <i class="bx bxs-star" (click)="favFunc()" *ngIf="fav"></i>
+      <i class="bx bxs-share-alt" (click)="share()"></i>
+      <i class="bx bxs-edit-alt" (click)="edit()"></i>
+      <i class="bx bx-trash" (click)="delete()"></i>
+      <button routerLink="/board" [queryParams]="{id: id}">Open</button>
+    </footer>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'edit'">
+    <header>
+      <div class="color" style="--color:{{color}}" (click)="pickColor()">
+        <input type="color" id="boardPreviewColorInput-{{index}}" (change)="setColor()" [value]="color">
+        <i class='bx bxs-dashboard' ></i>
+      </div>
+      <input type="text" placeholder="Board title..." id="boardPreviewTitleInput-{{index}}" [value]="title">
+    </header>
+    <footer>
+      <i class="bx bx-save" (click)="saveEdit()"></i>
+      <i class="bx bx-x" (click)="cancelEdit()"></i>
+    </footer>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'pending'">
+    <header>
+      <div class="color" style='--color:{{color}}'>
+        <i class='bx bxs-dashboard' ></i>
+      </div>
+      <aside>
+        <h2>{{title}}</h2>
+        <p>Pending</p>
+      </aside>
+    </header>
+    <footer>
+      <button (click)="cancelJoinRequest()">Cancel join request</button>
+    </footer>
+  </ng-container>
+
 </div>

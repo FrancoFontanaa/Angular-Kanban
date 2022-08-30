@@ -76,6 +76,40 @@
         background: var(--secondary);
       }
     }
+
+    .joining-input, .new-boards-panel{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space);
+      padding: var(--space) 0;
+      input, aside {
+        flex-grow: 1;
+        min-width: 17rem;
+      }
+      aside {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: var(--space);
+        button {
+          flex-grow: 1;
+        }
+      }
+      input {
+        border-radius: var(--small-border-radius);
+        padding: calc(var(--space) * 0.5);
+        outline: none;
+        &::placeholder{
+          color: var(--light);
+        }
+      }
+      >button {
+        flex-grow: 1;
+        min-width: 17rem;
+        align-self: center;
+      }
+    }
   }
 }
 

@@ -12,12 +12,14 @@ export interface Column {
 }
 
 export interface Board {
-  img: string,
+  color: string,
   title: string,
   members: number,
   visible: boolean,
   fav: boolean,
-  date: number
+  date: number,
+  mode: string,
+  id: string
 }
 
 export interface MyUser {

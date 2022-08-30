@@ -15,17 +15,43 @@
     </label>
   </header>
   <div class="container">
-    <button class="shadow">
-      <i class="bx bx-plus"></i>
-      Add new
-    </button>
+    <ng-container *ngIf="!joining; else joiningInput">
+      <div class="new-boards-panel">
+        <button class="shadow" (click)="newBoard()">
+          <i class="bx bx-plus"></i>
+          Create new
+        </button>
+        <button class="shadow" (click)="toggleJoining()">
+          <i class='bx bx-right-arrow-circle' ></i>
+          Join new
+        </button>
+      </div>
+    </ng-container>
+    <ng-template #joiningInput>
+      <div class="joining-input">
+        <input type="text" placeholder="Enter your invitation code">
+        <aside>
+          <button>Join</button>
+          <button (click)="toggleJoining()">Cancel</button>
+        </aside>
+      </div>
+    </ng-template>
     <ng-container *ngFor="let board of boards;let boardIndex = index">
       <app-board-preview
         [title]="board.title"
         [members]="board.members"
-        [img]="board.img"
+        [color]="board.color"
         [fav]="board.fav"
+        [mode]="board.mode"
+        [index]="boardIndex"
+        [id]="board.id"
         (favEvent)="fav(boardIndex)"
+        (cancelEditEvent)="cancelEditBoard(boardIndex)"
+        (editEvent)="editBoard(boardIndex)"
+        (deleteEvent)="deleteBoard(boardIndex)"
+        (saveEditEvent)="saveEditBoard(boardIndex)"
+        (setColorEvent)="setBoardColor(boardIndex)"
+        (pickColorEvent)="pickBoardColor(boardIndex)"
         *ngIf="board.visible"
       ></app-board-preview>
     </ng-container>
