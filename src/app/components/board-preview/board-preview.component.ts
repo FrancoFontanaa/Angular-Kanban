@@ -19,11 +19,11 @@ export class BoardPreviewComponent {
 
   @Input() title: string = 'Title';
   @Input() color: string = 'cyan';
+  @Input() editColor: string = 'cyan';
   @Input() members: number = 1;
   @Input() fav: boolean = false;
   @Input() mode: string = 'normal';
   @Input() index: number = 0;
-  @Input() id: string = '';
 
 
   favFunc() {this.favEvent.emit()}

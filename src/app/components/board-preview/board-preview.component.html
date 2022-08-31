@@ -16,13 +16,13 @@
       <i class="bx bxs-share-alt" (click)="share()"></i>
       <i class="bx bxs-edit-alt" (click)="edit()"></i>
       <i class="bx bx-trash" (click)="delete()"></i>
-      <button routerLink="/board/{{id}}">Open</button>
+      <button routerLink="/board/{{index}}">Open</button>
     </footer>
   </ng-container>
 
   <ng-container *ngSwitchCase="'edit'">
     <header>
-      <div class="color" style="--color:{{color}}" (click)="pickColor()">
+      <div class="color" style="--color:{{editColor}}" (click)="pickColor()">
         <input type="color" id="boardPreviewColorInput-{{index}}" (change)="setColor()" [value]="color">
         <i class='bx bxs-dashboard' ></i>
       </div>
@@ -31,21 +31,6 @@
     <footer>
       <i class="bx bx-save" (click)="saveEdit()"></i>
       <i class="bx bx-x" (click)="cancelEdit()"></i>
-    </footer>
-  </ng-container>
-
-  <ng-container *ngSwitchCase="'pending'">
-    <header>
-      <div class="color" style='--color:{{color}}'>
-        <i class='bx bxs-dashboard' ></i>
-      </div>
-      <aside>
-        <h2>{{title}}</h2>
-        <p>Pending</p>
-      </aside>
-    </header>
-    <footer>
-      <button (click)="cancelJoinRequest()">Cancel join request</button>
     </footer>
   </ng-container>
 

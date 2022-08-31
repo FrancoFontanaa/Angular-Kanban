@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Column } from 'src/assets/models';
 import { ActivatedRoute } from '@angular/router';
+import { BoardsManagerService } from 'src/app/services/boards-manager.service';
 
 @Component({
   selector: 'app-board',
@@ -10,15 +11,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BoardComponent implements OnInit {
 
-  columns: Column[] = [];
-  boardId: string | undefined;
+  boardIndex: number = 0;
 
   constructor(
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public boardsManager: BoardsManagerService
   ){}
 
   async ngOnInit() {
-    this.boardId = this.activatedRoute.snapshot.paramMap.get('id') as string
+    this.boardIndex = parseInt(this.activatedRoute.snapshot.paramMap.get('id') as string) as number;
   }
 
   drop(event: CdkDragDrop<any[]>) {
@@ -32,11 +33,12 @@ export class BoardComponent implements OnInit {
         event.currentIndex,
       );
     }
+    this.boardsManager.updateBoardColumns(this.boardIndex)
   }
 
   newColumn() {
     const columnsContainer = document.getElementById('columns-container');
-    this.columns.push(
+    this.boardsManager.userBoards[this.boardIndex].columns.push(
     {
       title: '',
       cards: [],
@@ -45,35 +47,38 @@ export class BoardComponent implements OnInit {
     if (columnsContainer) {
       setTimeout(()=>{columnsContainer.scrollLeft = columnsContainer.scrollWidth;},50)
     }
+    this.boardsManager.updateBoardColumns(this.boardIndex)
   }
 
   editColumn(i: number) {
-    this.columns[i].editmode = true;
+    this.boardsManager.userBoards[this.boardIndex].columns[i].editmode = true;
   }
 
   cancelEditColumn(i:number) {
-    if (this.columns[i].title == "") {
-      this.columns.splice(i, 1);
+    if (this.boardsManager.userBoards[this.boardIndex].columns[i].title == "") {
+      this.boardsManager.userBoards[this.boardIndex].columns.splice(i, 1);
       return
     }
-    this.columns[i].editmode = false;
+    this.boardsManager.userBoards[this.boardIndex].columns[i].editmode = false;
   }
 
   deleteColumn(i: number) {
-    this.columns.splice(i, 1);
+    this.boardsManager.userBoards[this.boardIndex].columns.splice(i, 1);
+    this.boardsManager.updateBoardColumns(this.boardIndex)
   }
 
   saveColumn(i: number, e: KeyboardEvent | null) {
     if (e && e.key != "Enter") {
       return
     }
-    this.columns[i].title = (document.getElementById(`columnTitleInput-${i}`) as HTMLInputElement).value;
-    this.columns[i].editmode = false;
+    this.boardsManager.userBoards[this.boardIndex].columns[i].title = (document.getElementById(`columnTitleInput-${i}`) as HTMLInputElement).value;
+    this.boardsManager.userBoards[this.boardIndex].columns[i].editmode = false;
+    this.boardsManager.updateBoardColumns(this.boardIndex)
   }
 
   newCard(i: number) {
     const cardsContainer = document.getElementById('cardsContainer-'+i);
-    this.columns[i].cards.push(
+    this.boardsManager.userBoards[this.boardIndex].columns[i].cards.push(
       {
         title: "",
         body: "",
@@ -86,35 +91,38 @@ export class BoardComponent implements OnInit {
         cardsContainer.scrollTop = cardsContainer.scrollHeight;
       },50)
     }
+    this.boardsManager.updateBoardColumns(this.boardIndex);
   }
 
   editCard(i: number, ci: number) {
-    this.columns[i].cards[ci].editmode = true
+    this.boardsManager.userBoards[this.boardIndex].columns[i].cards[ci].editmode = true
   }
 
   cancelEditCard(i: number, ci: number) {
-    if (this.columns[i].cards[ci].title == "" || this.columns[i].cards[ci].body == "") {
-      this.columns[i].cards.splice(ci, 1);
+    if (this.boardsManager.userBoards[this.boardIndex].columns[i].cards[ci].title == "" || this.boardsManager.userBoards[this.boardIndex].columns[i].cards[ci].body == "") {
+      this.boardsManager.userBoards[this.boardIndex].columns[i].cards.splice(ci, 1);
       return
     }
-    this.columns[i].cards[ci].editmode = false
+    this.boardsManager.userBoards[this.boardIndex].columns[i].cards[ci].editmode = false
   }
 
   deleteCard(i: number, ci: number) {
-    this.columns[i].cards.splice(ci, 1)
+    this.boardsManager.userBoards[this.boardIndex].columns[i].cards.splice(ci, 1);
+    this.boardsManager.updateBoardColumns(this.boardIndex)
   }
 
   saveCard(i: number, ci: number) {
     const cardTitleInput = (document.getElementById('cardTitleInput-'+i+'-'+ci) as HTMLInputElement).value;
     const cardBodyInput = (document.getElementById('cardBodyInput-'+i+'-'+ci) as HTMLInputElement).value;
     if (cardTitleInput == "" || cardBodyInput == "") {
-      this.columns[i].cards.splice(ci, 1);
+      this.boardsManager.userBoards[this.boardIndex].columns[i].cards.splice(ci, 1);
       return
     }
-    this.columns[i].cards[ci].title = cardTitleInput;
-    this.columns[i].cards[ci].color = (document.getElementById('cardColorInput-'+i+'-'+ci) as HTMLInputElement).value;
-    this.columns[i].cards[ci].body = cardBodyInput;
-    this.columns[i].cards[ci].editmode = false
+    this.boardsManager.userBoards[this.boardIndex].columns[i].cards[ci].title = cardTitleInput;
+    this.boardsManager.userBoards[this.boardIndex].columns[i].cards[ci].color = (document.getElementById('cardColorInput-'+i+'-'+ci) as HTMLInputElement).value;
+    this.boardsManager.userBoards[this.boardIndex].columns[i].cards[ci].body = cardBodyInput;
+    this.boardsManager.userBoards[this.boardIndex].columns[i].cards[ci].editmode = false;
+    this.boardsManager.updateBoardColumns(this.boardIndex)
   }
 
   pickColorCard(i: number, ci: number) {
@@ -122,6 +130,7 @@ export class BoardComponent implements OnInit {
   }
 
   setColorCard(i: number, ci: number) {
-    this.columns[i].cards[ci].color = (document.getElementById('cardColorInput-'+i+'-'+ci) as HTMLInputElement).value
+    this.boardsManager.userBoards[this.boardIndex].columns[i].cards[ci].color = (document.getElementById('cardColorInput-'+i+'-'+ci) as HTMLInputElement).value;
+    this.boardsManager.updateBoardColumns(this.boardIndex);
   }
 }

@@ -15,41 +15,26 @@
     </label>
   </header>
   <div class="container">
-    <ng-container *ngIf="!joining; else joiningInput">
-      <div class="new-boards-panel">
-        <button class="shadow" (click)="newBoard()">
-          <i class="bx bx-plus"></i>
-          Create new
-        </button>
-        <button class="shadow" (click)="toggleJoining()">
-          <i class='bx bx-right-arrow-circle' ></i>
-          Join new
-        </button>
-      </div>
-    </ng-container>
-    <h1 *ngIf="boards.length < 1">Loading...</h1>
-    <ng-template #joiningInput>
-      <div class="joining-input">
-        <input type="text" placeholder="Enter your invitation code">
-        <aside>
-          <button>Join</button>
-          <button (click)="toggleJoining()">Cancel</button>
-        </aside>
-      </div>
-    </ng-template>
-    <ng-container *ngFor="let board of boards;let boardIndex = index">
+    <div class="new-boards-panel">
+      <button class="shadow" (click)="newBoard()">
+        <i class="bx bx-plus"></i>
+        Create new
+      </button>
+    </div>
+    <h1 *ngIf="this.boardsManager.userBoards.length < 1">Loading...</h1>
+    <ng-container *ngFor="let board of this.boardsManager.userBoards;let boardIndex = index">
       <app-board-preview
         [title]="board.title"
         [members]="board.members"
         [color]="board.color"
+        [editColor]="board.editColor"
         [fav]="board.fav"
         [mode]="board.mode"
         [index]="boardIndex"
-        [id]="board.id"
         (favEvent)="fav(boardIndex)"
         (cancelEditEvent)="cancelEditBoard(boardIndex)"
         (editEvent)="editBoard(boardIndex)"
-        (deleteEvent)="deleteBoard(boardIndex)"
+        (deleteEvent)="this.boardsManager.deleteBoard(boardIndex)"
         (saveEditEvent)="saveEditBoard(boardIndex)"
         (setColorEvent)="setBoardColor(boardIndex)"
         (pickColorEvent)="pickBoardColor(boardIndex)"

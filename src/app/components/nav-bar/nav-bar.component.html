@@ -55,7 +55,7 @@
       <app-image [src]="user.photoURL"></app-image>
       <aside>
         <p>{{ user.displayName }}</p>
-        <p id="log-out">Log out</p>
+        <p id="log-out" (click)="logOut()">Log out</p>
       </aside>
     </footer>
   </div>

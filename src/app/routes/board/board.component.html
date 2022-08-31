@@ -13,11 +13,11 @@
     cdkDropListGroup
     cdkDropList
     cdkDropListOrientation="horizontal"
-    [cdkDropListData]="columns"
+    [cdkDropListData]="this.boardsManager.userBoards[this.boardIndex].columns"
     (cdkDropListDropped)="drop($event)"
   >
     <div class="column"
-      *ngFor="let column of columns;
+      *ngFor="let column of this.boardsManager.userBoards[this.boardIndex].columns;
       let columnIndex = index"
       cdkDrag
     >
