@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Auth, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -10,10 +11,24 @@ import { Router } from '@angular/router';
 export class SignInComponent {
   constructor(
     private auth: Auth,
-    private router: Router
+    private router: Router,
+    private dbs: DatabaseService
   ) { }
-  async signIn() {
-    await signInWithPopup(this.auth, new GoogleAuthProvider());
-    this.router.navigate(['/home']);
+
+  signIn() {
+    signInWithPopup(this.auth, new GoogleAuthProvider()).then(()=>{
+      if(localStorage.getItem("isNewDevice") == null) {
+        this.dbs.saveUserProfileData().then(()=>{
+          localStorage.setItem("isNewDevice", "false");
+          this.router.navigate(['/home']);
+        }).catch(error => {
+          alert(error)
+        })
+      } else {
+        this.router.navigate(['/home']);
+      }
+    }).catch(error => {
+      alert(error)
+    })
   }
 }

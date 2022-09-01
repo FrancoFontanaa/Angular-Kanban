@@ -16,7 +16,7 @@
   </header>
   <div class="menu shadow" [ngClass]="{ active: toggleMenuBool }">
     <section>
-      <ng-container *ngIf="this.router.url == '/home'">
+      <ng-container *ngIf="this.router.url == '/home' || user.recent.title != 'Undefined'">
         <p>Recent...</p>
         <div class="recent">
           <div class="color" style="--color:{{this.user.recent.color}}">
@@ -55,7 +55,7 @@
       <app-image [src]="user.photoURL"></app-image>
       <aside>
         <p>{{ user.displayName }}</p>
-        <p id="log-out" (click)="logOut()">Log out</p>
+        <p id="log-out" (click)="logOut()" *ngIf="user.displayName != 'Not logged'">Log out</p>
       </aside>
     </footer>
   </div>

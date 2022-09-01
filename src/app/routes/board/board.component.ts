@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Column } from 'src/assets/models';
 import { ActivatedRoute } from '@angular/router';
 import { BoardsManagerService } from 'src/app/services/boards-manager.service';
 

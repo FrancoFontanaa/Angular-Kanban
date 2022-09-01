@@ -15,7 +15,7 @@ export class NavBarComponent implements OnInit {
 
   toggleMenuBool = false;
   user = {
-    displayName: "Undefined",
+    displayName: "Not logged",
     photoURL: "../../../assets/visuals/user-img-placeholder.svg",
     recent: {
       color: "white",

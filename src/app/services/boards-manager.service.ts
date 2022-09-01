@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
-import { collectionGroup, doc, Firestore, getDocs, query, where, addDoc, collection, updateDoc } from '@angular/fire/firestore';
-import { deleteDoc } from '@firebase/firestore';
+import { collectionGroup, doc, Firestore, getDocs, query, where, addDoc, collection, updateDoc, deleteDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +19,7 @@ export class BoardsManagerService {
     boards.forEach(board => {
       this.userBoards.push({
         color: board.data()['details'].color,
+        editColor: board.data()['details'].color,
         title: board.data()['details'].title,
         members: Object.keys(board.data()['permissions']).length,
         visible: true,
